@@ -195,10 +195,10 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 		public SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint)
 		{
-			return NativeView.GetSizeRequest(widthConstraint, heightConstraint);
+			return PlatformView.GetSizeRequest(widthConstraint, heightConstraint);
 		}
 
-		public UIView NativeView
+		public UIView PlatformView
 		{
 			get { return View; }
 		}
@@ -224,7 +224,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			EffectUtilities.RegisterEffectControlProvider(this, oldElement, element);
 
 			if (element != null)
-				element.SendViewInitialized(NativeView);
+				element.SendViewInitialized(PlatformView);
 		}
 
 		public void SetElementSize(Size size)
@@ -323,7 +323,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			UpdateFlowDirection();
 			UpdateFlyoutLayoutBehavior(View.Bounds.Size);
 			_tracker = new VisualElementTracker(this);
-			_events.LoadEvents(NativeView);
+			_events.LoadEvents(PlatformView);
 		}
 
 		void UpdateFlyoutLayoutBehavior(CGSize newBounds)
@@ -557,11 +557,11 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 		void UpdateFlowDirection()
 		{
-			if (NativeView.UpdateFlowDirection(Element) && Forms.IsiOS13OrNewer && NativeView.Superview != null)
+			if (PlatformView.UpdateFlowDirection(Element) && Forms.IsiOS13OrNewer && PlatformView.Superview != null)
 			{
-				var view = NativeView.Superview;
-				NativeView.RemoveFromSuperview();
-				view.AddSubview(NativeView);
+				var view = PlatformView.Superview;
+				PlatformView.RemoveFromSuperview();
+				view.AddSubview(PlatformView);
 			}
 		}
 

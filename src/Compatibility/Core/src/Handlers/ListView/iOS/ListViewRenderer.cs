@@ -30,8 +30,8 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 		UIView _backgroundUIView;
 		ListViewDataSource _dataSource;
-		INativeViewHandler _headerRenderer;
-		INativeViewHandler _footerRenderer;
+		IPlatformViewHandler _headerRenderer;
+		IPlatformViewHandler _footerRenderer;
 
 		KeyboardInsetTracker _insetTracker;
 		RectangleF _previousFrame;
@@ -86,7 +86,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				Device.BeginInvokeOnMainThread(() =>
 				{
 					if (_headerRenderer != null)
-						Control.TableHeaderView = _headerRenderer.NativeView;
+						Control.TableHeaderView = _headerRenderer.PlatformView;
 				});
 			}
 
@@ -100,7 +100,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				Device.BeginInvokeOnMainThread(() =>
 				{
 					if (_footerRenderer != null)
-						Control.TableFooterView = _footerRenderer.NativeView;
+						Control.TableFooterView = _footerRenderer.PlatformView;
 				});
 			}
 
@@ -401,7 +401,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			// Todo MAUI
 			//Layout.LayoutChildIntoBoundingRegion(footerView, new Rectangle(0, 0, width, request.Request.Height));
 
-			Control.TableFooterView = _footerRenderer.NativeView;
+			Control.TableFooterView = _footerRenderer.PlatformView;
 		}
 
 		void OnGroupedCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -425,7 +425,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			// TODO MAUI
 			//Layout.LayoutChildIntoBoundingRegion(headerView, new Rectangle(0, 0, width, request.Request.Height));
 
-			Control.TableHeaderView = _headerRenderer.NativeView;
+			Control.TableHeaderView = _headerRenderer.PlatformView;
 		}
 
 		void OnScrollToRequested(object sender, ScrollToRequestedEventArgs e)
@@ -495,7 +495,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				//var request = footerView.Measure(width, double.PositiveInfinity, MeasureFlags.IncludeMargins);
 				//Layout.LayoutChildIntoBoundingRegion(footerView, new Rectangle(0, 0, width, request.Request.Height));
 
-				Control.TableFooterView = _footerRenderer.NativeView;
+				Control.TableFooterView = _footerRenderer.PlatformView;
 				footerView.MeasureInvalidated += OnFooterMeasureInvalidated;
 			}
 			else if (_footerRenderer != null)
@@ -541,7 +541,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				//var request = headerView.Measure(width, double.PositiveInfinity);
 				//Layout.LayoutChildIntoBoundingRegion(headerView, new Rectangle(0, 0, width, request.Request.Height));
 
-				Control.TableHeaderView = _headerRenderer.NativeView;
+				Control.TableHeaderView = _headerRenderer.PlatformView;
 				headerView.MeasureInvalidated += OnHeaderMeasureInvalidated;
 			}
 			else if (_headerRenderer != null)
@@ -822,7 +822,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 		internal class UnevenListViewDataSource : ListViewDataSource
 		{
-			INativeViewHandler _prototype;
+			IPlatformViewHandler _prototype;
 			bool _disposed;
 			Dictionary<object, Cell> _prototypicalCellByTypeOrDataTemplate = new Dictionary<object, Cell>();
 
@@ -1164,8 +1164,8 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				cell.ReusableCell = null;
 
 				var handler = cell.ToHandler(cell.FindMauiContext());
-				var renderer = (handler as CellRenderer) ?? (handler.NativeView as CellRenderer);
-				header.SetTableViewCell(renderer.NativeView);
+				var renderer = (handler as CellRenderer) ?? (handler.PlatformView as CellRenderer);
+				header.SetTableViewCell(renderer.PlatformView);
 
 				return header;
 			}

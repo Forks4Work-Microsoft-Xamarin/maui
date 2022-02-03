@@ -11,7 +11,7 @@ namespace Microsoft.Maui.Handlers
 		readonly FlyoutPanel _flyoutPanel = new FlyoutPanel();
 		long? _registerCallbackToken;
 		NavigationRootManager? _navigationRootManager;
-		protected override RootNavigationView CreateNativeView()
+		protected override RootNavigationView CreatePlatformView()
 		{
 			var navigationView = new RootNavigationView();
 
@@ -41,8 +41,8 @@ namespace Microsoft.Maui.Handlers
 
 		void OnFlyoutPaneSizeChanged(object? sender, EventArgs e)
 		{
-			_flyoutPanel.Height = NativeView.FlyoutPaneSize.Height;
-			_flyoutPanel.Width = NativeView.FlyoutPaneSize.Width;
+			_flyoutPanel.Height = PlatformView.FlyoutPaneSize.Height;
+			_flyoutPanel.Width = PlatformView.FlyoutPaneSize.Width;
 			UpdateFlyoutPanelMargin();
 		}
 
@@ -56,8 +56,8 @@ namespace Microsoft.Maui.Handlers
 			// If you hide the backbutton and pane toggle button it will shift content up into the custom title
 			// bar. There currently isn't a property associated with this padding it's just set inside the
 			// source code on the PaneContentGrid
-			if (NativeView.IsBackButtonVisible == NavigationViewBackButtonVisible.Collapsed &&
-				NativeView.PaneDisplayMode == NavigationViewPaneDisplayMode.Left)
+			if (PlatformView.IsBackButtonVisible == NavigationViewBackButtonVisible.Collapsed &&
+				PlatformView.PaneDisplayMode == NavigationViewPaneDisplayMode.Left)
 			{
 				_flyoutPanel.Margin = new UI.Xaml.Thickness(
 					_flyoutPanel.Margin.Left,
@@ -85,7 +85,7 @@ namespace Microsoft.Maui.Handlers
 			_ = MauiContext ?? throw new InvalidOperationException($"{nameof(MauiContext)} should have been set by base class.");
 			_ = VirtualView.Detail.ToPlatform(MauiContext);
 
-			NativeView.Content = VirtualView.Detail.ToPlatform();
+			PlatformView.Content = VirtualView.Detail.ToPlatform();
 		}
 
 		void UpdateFlyout()
@@ -111,23 +111,23 @@ namespace Microsoft.Maui.Handlers
 
 		public static void MapIsPresented(FlyoutViewHandler handler, IFlyoutView flyoutView)
 		{
-			handler.NativeView.IsPaneOpen = flyoutView.IsPresented;
+			handler.PlatformView.IsPaneOpen = flyoutView.IsPresented;
 		}
 
 		public static void MapFlyoutWidth(FlyoutViewHandler handler, IFlyoutView flyoutView)
 		{
 			if (flyoutView.Width >= 0)
-				handler.NativeView.OpenPaneLength = flyoutView.Width;
+				handler.PlatformView.OpenPaneLength = flyoutView.Width;
 			else
-				handler.NativeView.OpenPaneLength = 320;
+				handler.PlatformView.OpenPaneLength = 320;
 			// At some point this Template Setting is going to show up with a bump to winui
-			//handler.NativeView.OpenPaneLength = handler.NativeView.TemplateSettings.OpenPaneWidth;
+			//handler.PlatformView.OpenPaneLength = handler.PlatformView.TemplateSettings.OpenPaneWidth;
 
 		}
 
 		public static void MapFlyoutBehavior(FlyoutViewHandler handler, IFlyoutView flyoutView)
 		{
-			var nativeView = handler.NativeView;
+			var nativeView = handler.PlatformView;
 
 			switch (flyoutView.FlyoutBehavior)
 			{

@@ -131,7 +131,7 @@ namespace Microsoft.Maui.Controls.Hosting
 					handlers.TryAddCompatibilityRenderer(typeof(Page), typeof(PageRenderer));
 					handlers.TryAddCompatibilityRenderer(typeof(FlyoutPage), typeof(FlyoutPageRenderer));
 					handlers.TryAddCompatibilityRenderer(typeof(RefreshView), typeof(RefreshViewRenderer));
-					handlers.TryAddCompatibilityRenderer(typeof(NativeViewWrapper), typeof(NativeViewWrapperRenderer));
+					handlers.TryAddCompatibilityRenderer(typeof(PlatformViewWrapper), typeof(PlatformViewWrapperRenderer));
 
 					handlers.TryAddCompatibilityRenderer(typeof(Microsoft.Maui.Controls.Compatibility.RelativeLayout), typeof(DefaultRenderer));
 					handlers.TryAddCompatibilityRenderer(typeof(Microsoft.Maui.Controls.Compatibility.AbsoluteLayout), typeof(DefaultRenderer));

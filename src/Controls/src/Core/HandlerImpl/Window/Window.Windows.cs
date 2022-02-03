@@ -8,7 +8,7 @@ namespace Microsoft.Maui.Controls
 	public partial class Window
 	{
 		internal UI.Xaml.Window NativeWindow =>
-			(Handler?.NativeView as UI.Xaml.Window) ?? throw new InvalidOperationException("Window Handler should have a Window set.");
+			(Handler?.PlatformView as UI.Xaml.Window) ?? throw new InvalidOperationException("Window Handler should have a Window set.");
 
 		public static void MapContent(WindowHandler handler, IWindow view)
 		{
@@ -17,7 +17,7 @@ namespace Microsoft.Maui.Controls
 				WindowHandler.MapContent(handler, view);
 				return;
 			}
-			if (handler.NativeView.Content is UI.Xaml.Controls.Panel panel)
+			if (handler.PlatformView.Content is UI.Xaml.Controls.Panel panel)
 			{
 				var nativeContent = view.Content.ToPlatform(handler.MauiContext!);
 				panel.Children.Clear();

@@ -12,16 +12,16 @@ using UIKit;
 namespace Microsoft.Maui.Handlers
 {
 	public partial class NavigationViewHandler :
-		ViewHandler<INavigationView, UIView>, INativeViewHandler
+		ViewHandler<INavigationView, UIView>, IPlatformViewHandler
 	{
 		ControlsNavigationController? _controlsNavigationController;
-		UIViewController? INativeViewHandler.ViewController => _controlsNavigationController;
+		UIViewController? IPlatformViewHandler.ViewController => _controlsNavigationController;
 
 		public INavigationView NavigationView => ((INavigationView)VirtualView);
 
 		public IReadOnlyList<IView> NavigationStack { get; private set; } = new List<IView>();
 
-		protected override UIView CreateNativeView()
+		protected override UIView CreatePlatformView()
 		{
 			_controlsNavigationController = new ControlsNavigationController(this);
 

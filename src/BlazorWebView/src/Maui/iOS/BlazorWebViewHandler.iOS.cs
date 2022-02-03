@@ -48,7 +48,7 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 			})();
 		";
 
-		protected override WKWebView CreateNativeView()
+		protected override WKWebView CreatePlatformView()
 		{
 			var config = new WKWebViewConfiguration();
 
@@ -103,7 +103,7 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 			{
 				return;
 			}
-			if (NativeView == null)
+			if (PlatformView == null)
 			{
 				throw new InvalidOperationException($"Can't start {nameof(BlazorWebView)} without native web view instance.");
 			}
@@ -115,7 +115,7 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 
 			var fileProvider = VirtualView.CreateFileProvider(contentRootDir);
 
-			_webviewManager = new IOSWebViewManager(this, NativeView, Services!, ComponentsDispatcher, fileProvider, VirtualView.JSComponents, hostPageRelativePath);
+			_webviewManager = new IOSWebViewManager(this, PlatformView, Services!, ComponentsDispatcher, fileProvider, VirtualView.JSComponents, hostPageRelativePath);
 
 			if (RootComponents != null)
 			{

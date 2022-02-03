@@ -9,7 +9,7 @@ namespace Microsoft.Maui.Handlers
 	{
 		object? _foregroundDefault;
 
-		protected override Grid CreateNativeView() =>
+		protected override Grid CreatePlatformView() =>
 			new Grid();
 
 		public ProgressBar? ProgressBar { get; internal set; }

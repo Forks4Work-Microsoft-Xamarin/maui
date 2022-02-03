@@ -8,7 +8,7 @@ namespace Microsoft.Maui.Handlers
 	public partial class NavigationViewHandler :
 		ViewHandler<INavigationView, object>
 	{
-		protected override object CreateNativeView()
+		protected override object CreatePlatformView()
 		{
 			throw new NotImplementedException();
 		}
