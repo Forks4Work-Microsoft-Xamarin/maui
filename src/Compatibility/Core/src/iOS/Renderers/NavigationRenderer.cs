@@ -820,7 +820,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				return;
 			}
 
-			await FlyoutPage.Flyout.ApplyNativeImageAsync(Page.IconImageSourceProperty, icon =>
+			await FlyoutPage.Flyout.ApplyPlatformImageAsync(Page.IconImageSourceProperty, icon =>
 			{
 				if (icon != null)
 				{
@@ -1318,7 +1318,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				}
 				else
 				{
-					var image = await titleIcon.GetNativeImageAsync();
+					var image = await titleIcon.GetPlatformImageAsync();
 					try
 					{
 						titleViewContainer.Icon = new UIImageView(image);
