@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Handlers
 		NavigationRootManager? NavigationRootManager =>
 			MauiContext?.GetNavigationRootManager();
 
-		protected override WindowHeader CreateNativeElement()
+		protected override WindowHeader CreatePlatformElement()
 		{
 			return new WindowHeader();
 		}
