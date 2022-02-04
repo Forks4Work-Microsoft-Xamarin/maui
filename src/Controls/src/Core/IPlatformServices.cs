@@ -23,6 +23,6 @@ namespace Microsoft.Maui.Controls.Internals
 
 		string RuntimePlatform { get; }
 
-		SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint);
+		SizeRequest GetPlatformSize(VisualElement view, double widthConstraint, double heightConstraint);
 	}
 }
