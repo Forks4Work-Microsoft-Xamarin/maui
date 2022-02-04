@@ -42,8 +42,8 @@ namespace Microsoft.Maui.Controls.Handlers
 		int[] _checkedStateSet = null;
 		int[] _selectedStateSet = null;
 		int[] _emptyStateSet = null;
-		int _defaultARGBColor = Colors.Transparent.ToNative().ToArgb();
-		AColor _defaultAndroidColor = Colors.Transparent.ToNative();
+		int _defaultARGBColor = Colors.Transparent.ToPlatform().ToArgb();
+		AColor _defaultAndroidColor = Colors.Transparent.ToPlatform();
 		readonly IMauiContext _context;
 		readonly Listeners _listeners;
 		TabbedPage Element { get; set; }
@@ -476,7 +476,7 @@ namespace Microsoft.Maui.Controls.Handlers
 				if (tintColor == null)
 					_bottomNavigationView.SetBackground(null);
 				else if (tintColor != null)
-					_bottomNavigationView.SetBackgroundColor(tintColor.ToNative());
+					_bottomNavigationView.SetBackgroundColor(tintColor.ToPlatform());
 			}
 			else
 			{
@@ -487,7 +487,7 @@ namespace Microsoft.Maui.Controls.Handlers
 				else
 				{
 					_tabLayout.BackgroundTintMode = PorterDuff.Mode.Src;
-					_tabLayout.BackgroundTintList = ColorStateList.ValueOf(tintColor.ToNative());
+					_tabLayout.BackgroundTintList = ColorStateList.ValueOf(tintColor.ToPlatform());
 				}
 			}
 		}
@@ -522,12 +522,12 @@ namespace Microsoft.Maui.Controls.Handlers
 
 			if (barTextColor != null)
 			{
-				checkedColor = barTextColor.ToNative().ToArgb();
+				checkedColor = barTextColor.ToPlatform().ToArgb();
 				defaultColor = checkedColor;
 			}
 			else
 			{
-				defaultColor = barItemColor.ToNative().ToArgb();
+				defaultColor = barItemColor.ToPlatform().ToArgb();
 
 				if (barItemColor == null && _originalTabTextColors != null)
 					defaultColor = _originalTabTextColors.DefaultColor;
@@ -535,7 +535,7 @@ namespace Microsoft.Maui.Controls.Handlers
 				checkedColor = defaultColor;
 
 				if (barSelectedItemColor != null)
-					checkedColor = barSelectedItemColor.ToNative().ToArgb();
+					checkedColor = barSelectedItemColor.ToPlatform().ToArgb();
 			}
 
 			_newTabTextColors = GetColorStateList(defaultColor, checkedColor);
@@ -562,7 +562,7 @@ namespace Microsoft.Maui.Controls.Handlers
 			if (_newTabIconColors != null)
 				return _newTabIconColors;
 
-			int defaultColor = barItemColor.ToNative().ToArgb();
+			int defaultColor = barItemColor.ToPlatform().ToArgb();
 
 			if (barItemColor == null && _orignalTabIconColors != null)
 				defaultColor = _orignalTabIconColors.DefaultColor;
@@ -570,7 +570,7 @@ namespace Microsoft.Maui.Controls.Handlers
 			int checkedColor = defaultColor;
 
 			if (barSelectedItemColor != null)
-				checkedColor = barSelectedItemColor.ToNative().ToArgb();
+				checkedColor = barSelectedItemColor.ToPlatform().ToArgb();
 
 			_newTabIconColors = GetColorStateList(defaultColor, checkedColor);
 			return _newTabIconColors;

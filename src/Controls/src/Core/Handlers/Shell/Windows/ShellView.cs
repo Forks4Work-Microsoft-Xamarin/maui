@@ -307,7 +307,7 @@ namespace Microsoft.Maui.Controls.Platform
 				if (_shell.FlyoutBackground != null)
 					FlyoutBackgroundColor = _shell.FlyoutBackground.ToBrush();
 				else if (_shell.FlyoutBackgroundColor != null)
-					FlyoutBackgroundColor = _shell.FlyoutBackgroundColor.ToNative();
+					FlyoutBackgroundColor = _shell.FlyoutBackgroundColor.ToPlatform();
 			}
 				
 		}

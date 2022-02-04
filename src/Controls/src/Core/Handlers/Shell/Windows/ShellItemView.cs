@@ -173,7 +173,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 							if (!fontImageSource.Color.IsDefault())
 							{
-								icon.Foreground = fontImageSource.Color.ToNative();
+								icon.Foreground = fontImageSource.Color.ToPlatform();
 							}
 
 							btn.Icon = icon;

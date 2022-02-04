@@ -106,7 +106,7 @@ namespace Microsoft.Maui.Platform
 			nativeView?.UpdatePlatformViewBackground(view);
 		}
 
-		public static WFlowDirection ToNative(this FlowDirection flowDirection)
+		public static WFlowDirection ToPlatform(this FlowDirection flowDirection)
 		{
 			if (flowDirection == FlowDirection.RightToLeft)
 				return WFlowDirection.RightToLeft;
@@ -131,7 +131,7 @@ namespace Microsoft.Maui.Platform
 				flowDirection = FlowDirection.LeftToRight;
 			}
 
-			nativeView.FlowDirection = flowDirection.ToNative();
+			nativeView.FlowDirection = flowDirection.ToPlatform();
 		}
 
 		public static void UpdateAutomationId(this FrameworkElement nativeView, IView view) =>
@@ -154,7 +154,7 @@ namespace Microsoft.Maui.Platform
 			if (color.IsDefault())
 				nativeControl.ClearValue(property);
 			else
-				nativeControl.SetValue(property, color.ToNative());
+				nativeControl.SetValue(property, color.ToPlatform());
 		}
 
 		internal static void UpdateProperty(this FrameworkElement nativeControl, DependencyProperty property, object? value)

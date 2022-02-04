@@ -469,7 +469,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		void UpdateSpinnerColor()
 		{
 			if (_refresh != null && Element.RefreshControlColor != null)
-				_refresh.SetColorSchemeColors(Element.RefreshControlColor.ToNative());
+				_refresh.SetColorSchemeColors(Element.RefreshControlColor.ToPlatform());
 		}
 
 		void UpdateHorizontalScrollBarVisibility()

@@ -295,9 +295,9 @@ namespace Microsoft.Maui.Controls.Handlers
 					var vm = items[i];
 					vm.Content = page.Title;
 					vm.Data = page;
-					vm.Foreground = view.BarTextColor?.AsPaint()?.ToNative();
-					vm.SelectedBackground = view.SelectedTabColor?.AsPaint()?.ToNative();
-					vm.UnselectedBackground = view.UnselectedTabColor?.AsPaint()?.ToNative();
+					vm.Foreground = view.BarTextColor?.AsPaint()?.ToPlatform();
+					vm.SelectedBackground = view.SelectedTabColor?.AsPaint()?.ToPlatform();
+					vm.UnselectedBackground = view.UnselectedTabColor?.AsPaint()?.ToPlatform();
 				}
 
 				handler.UpdateValue(nameof(TabbedPage.CurrentPage));

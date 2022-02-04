@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Platform
 
 		public static void UpdateTopNavigationViewItemTextColor(this MauiNavigationView navigationView, Paint? paint)
 		{
-			var brush = paint?.ToNative();
+			var brush = paint?.ToPlatform();
 
 			if (navigationView.TopNavArea != null)
 			{
@@ -53,7 +53,7 @@ namespace Microsoft.Maui.Platform
 
 		public static void UpdateTopNavigationViewItemBackgroundUnselectedColor(this MauiNavigationView navigationView, Paint? paint)
 		{
-			var brush = paint?.ToNative();
+			var brush = paint?.ToPlatform();
 			if (navigationView.TopNavArea != null)
 			{
 				if (brush is null)
@@ -81,7 +81,7 @@ namespace Microsoft.Maui.Platform
 
 		public static void UpdateTopNavigationViewItemBackgroundSelectedColor(this MauiNavigationView navigationView, Paint? paint)
 		{
-			var brush = paint?.ToNative();
+			var brush = paint?.ToPlatform();
 			if (navigationView.TopNavArea != null)
 			{
 				if (brush is null)
