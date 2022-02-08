@@ -15,21 +15,21 @@ namespace Microsoft.Maui.Handlers
 				ClipsToBounds = true
 			};
 
-		protected override void ConnectHandler(MauiTextField nativeView)
+		protected override void ConnectHandler(MauiTextField platformView)
 		{
-			nativeView.ShouldReturn = OnShouldReturn;
-			nativeView.EditingChanged += OnEditingChanged;
-			nativeView.EditingDidEnd += OnEditingEnded;
-			nativeView.TextPropertySet += OnTextPropertySet;
-			nativeView.ShouldChangeCharacters += OnShouldChangeCharacters;
+			platformView.ShouldReturn = OnShouldReturn;
+			platformView.EditingChanged += OnEditingChanged;
+			platformView.EditingDidEnd += OnEditingEnded;
+			platformView.TextPropertySet += OnTextPropertySet;
+			platformView.ShouldChangeCharacters += OnShouldChangeCharacters;
 		}
 
-		protected override void DisconnectHandler(MauiTextField nativeView)
+		protected override void DisconnectHandler(MauiTextField platformView)
 		{
-			nativeView.EditingChanged -= OnEditingChanged;
-			nativeView.EditingDidEnd -= OnEditingEnded;
-			nativeView.TextPropertySet -= OnTextPropertySet;
-			nativeView.ShouldChangeCharacters -= OnShouldChangeCharacters;
+			platformView.EditingChanged -= OnEditingChanged;
+			platformView.EditingDidEnd -= OnEditingEnded;
+			platformView.TextPropertySet -= OnTextPropertySet;
+			platformView.ShouldChangeCharacters -= OnShouldChangeCharacters;
 		}
 
 		public static void MapText(EntryHandler handler, IEntry entry)

@@ -28,16 +28,16 @@ namespace Microsoft.Maui.Handlers
 			return _stackNavigationManager ??= new StackNavigationManager(MauiContext);
 		}
 
-		protected override void ConnectHandler(View nativeView)
+		protected override void ConnectHandler(View platformView)
 		{
-			base.ConnectHandler(nativeView);
+			base.ConnectHandler(platformView);
 			_stackNavigationManager?.Connect(VirtualView);
 		}
 
-		private protected override void OnDisconnectHandler(View nativeView)
+		private protected override void OnDisconnectHandler(View platformView)
 		{
 			_stackNavigationManager?.Disconnect();
-			base.OnDisconnectHandler(nativeView);
+			base.OnDisconnectHandler(platformView);
 		}
 
 		public static void RequestNavigation(NavigationViewHandler arg1, INavigationView arg2, object? arg3)

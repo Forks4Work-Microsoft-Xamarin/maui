@@ -49,25 +49,25 @@ namespace Microsoft.Maui.Handlers
 
 		internal UIDatePicker? DatePickerDialog { get { return _picker; } }
 
-		protected override void ConnectHandler(MauiDatePicker nativeView)
+		protected override void ConnectHandler(MauiDatePicker platformView)
 		{
 			if (_picker != null)
 				_picker.ValueChanged += OnValueChanged;
 
-			base.ConnectHandler(nativeView);
+			base.ConnectHandler(platformView);
 		}
 
-		protected override void DisconnectHandler(MauiDatePicker nativeView)
+		protected override void DisconnectHandler(MauiDatePicker platformView)
 		{
 			if (_picker != null)
 				_picker.ValueChanged -= OnValueChanged;
 
-			base.DisconnectHandler(nativeView);
+			base.DisconnectHandler(platformView);
 		}
 
-		void SetupDefaults(MauiDatePicker nativeView)
+		void SetupDefaults(MauiDatePicker platformView)
 		{
-			_defaultTextColor = nativeView.TextColor;
+			_defaultTextColor = platformView.TextColor;
 		}
 
 		public static void MapFormat(DatePickerHandler handler, IDatePicker datePicker)

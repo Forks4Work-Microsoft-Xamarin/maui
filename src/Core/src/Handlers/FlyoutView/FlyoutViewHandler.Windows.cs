@@ -19,22 +19,22 @@ namespace Microsoft.Maui.Handlers
 			return navigationView;
 		}
 
-		protected override void ConnectHandler(RootNavigationView nativeView)
+		protected override void ConnectHandler(RootNavigationView platformView)
 		{
 			_navigationRootManager = MauiContext?.GetNavigationRootManager();
-			nativeView.FlyoutPaneSizeChanged += OnFlyoutPaneSizeChanged;
-			nativeView.PaneOpened += OnPaneOepened;
-			_registerCallbackToken = nativeView.RegisterPropertyChangedCallback(NavigationView.IsBackButtonVisibleProperty, BackButtonVisibleChanged);
+			platformView.FlyoutPaneSizeChanged += OnFlyoutPaneSizeChanged;
+			platformView.PaneOpened += OnPaneOepened;
+			_registerCallbackToken = platformView.RegisterPropertyChangedCallback(NavigationView.IsBackButtonVisibleProperty, BackButtonVisibleChanged);
 		}
 
-		protected override void DisconnectHandler(RootNavigationView nativeView)
+		protected override void DisconnectHandler(RootNavigationView platformView)
 		{
-			nativeView.FlyoutPaneSizeChanged += OnFlyoutPaneSizeChanged;
-			nativeView.PaneOpened -= OnPaneOepened;
+			platformView.FlyoutPaneSizeChanged += OnFlyoutPaneSizeChanged;
+			platformView.PaneOpened -= OnPaneOepened;
 
 			if(_registerCallbackToken != null)
 			{
-				nativeView.UnregisterPropertyChangedCallback(NavigationView.IsBackButtonVisibleProperty, _registerCallbackToken.Value);
+				platformView.UnregisterPropertyChangedCallback(NavigationView.IsBackButtonVisibleProperty, _registerCallbackToken.Value);
 				_registerCallbackToken = null;
 			}
 		}
@@ -127,25 +127,25 @@ namespace Microsoft.Maui.Handlers
 
 		public static void MapFlyoutBehavior(FlyoutViewHandler handler, IFlyoutView flyoutView)
 		{
-			var nativeView = handler.PlatformView;
+			var platformView = handler.PlatformView;
 
 			switch (flyoutView.FlyoutBehavior)
 			{
 				case FlyoutBehavior.Flyout:
-					nativeView.IsPaneToggleButtonVisible = true;
+					platformView.IsPaneToggleButtonVisible = true;
 					// Workaround for
 					// https://github.com/microsoft/microsoft-ui-xaml/issues/6493
-					nativeView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
-					nativeView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+					platformView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+					platformView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
 					break;
 				case FlyoutBehavior.Locked:
-					nativeView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
-					nativeView.IsPaneToggleButtonVisible = false;
+					platformView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+					platformView.IsPaneToggleButtonVisible = false;
 					break;
 				case FlyoutBehavior.Disabled:
-					nativeView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
-					nativeView.IsPaneToggleButtonVisible = false;
-					nativeView.IsPaneOpen = false;
+					platformView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+					platformView.IsPaneToggleButtonVisible = false;
+					platformView.IsPaneOpen = false;
 					break;
 
 			}

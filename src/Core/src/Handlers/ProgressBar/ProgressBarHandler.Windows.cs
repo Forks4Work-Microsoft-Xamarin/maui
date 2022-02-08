@@ -14,24 +14,24 @@ namespace Microsoft.Maui.Handlers
 
 		public ProgressBar? ProgressBar { get; internal set; }
 
-		protected override void ConnectHandler(Grid nativeView)
+		protected override void ConnectHandler(Grid platformView)
 		{
 			ProgressBar = new ProgressBar { Minimum = 0, Maximum = 1 };
-			nativeView.Children.Add(ProgressBar);
+			platformView.Children.Add(ProgressBar);
 			ProgressBar.ValueChanged += OnProgressBarValueChanged;
 
 			SetupDefaults(ProgressBar);
 		}
 
-		protected override void DisconnectHandler(Grid nativeView)
+		protected override void DisconnectHandler(Grid platformView)
 		{
 			if (ProgressBar != null)
 				ProgressBar.ValueChanged -= OnProgressBarValueChanged;
 		}
 
-		void SetupDefaults(ProgressBar nativeView)
+		void SetupDefaults(ProgressBar platformView)
 		{
-			_foregroundDefault = nativeView.GetForegroundCache();
+			_foregroundDefault = platformView.GetForegroundCache();
 		}
 
 		public static void MapProgress(ProgressBarHandler handler, IProgress progress)

@@ -18,7 +18,7 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 			return new WebView2Control();
 		}
 
-		protected override void DisconnectHandler(WebView2Control nativeView)
+		protected override void DisconnectHandler(WebView2Control platformView)
 		{
 			if (_webviewManager != null)
 			{

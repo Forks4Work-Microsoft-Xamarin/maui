@@ -48,9 +48,9 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 			return blazorAndroidWebView;
 		}
 
-		protected override void DisconnectHandler(BlazorAndroidWebView nativeView)
+		protected override void DisconnectHandler(BlazorAndroidWebView platformView)
 		{
-			nativeView.StopLoading();
+			platformView.StopLoading();
 
 			if (_webviewManager != null)
 			{

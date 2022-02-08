@@ -73,9 +73,9 @@ namespace Microsoft.AspNetCore.Components.WebView.Maui
 			_webviewManager?.MessageReceivedInternal(uri, message);
 		}
 
-		protected override void DisconnectHandler(WKWebView nativeView)
+		protected override void DisconnectHandler(WKWebView platformView)
 		{
-			nativeView.StopLoading();
+			platformView.StopLoading();
 
 			if (_webviewManager != null)
 			{

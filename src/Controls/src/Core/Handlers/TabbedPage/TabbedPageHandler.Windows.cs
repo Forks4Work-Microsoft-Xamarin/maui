@@ -54,9 +54,9 @@ namespace Microsoft.Maui.Controls.Handlers
 			return _navigationFrame;
 		}
 
-		private protected override void OnConnectHandler(FrameworkElement nativeView)
+		private protected override void OnConnectHandler(FrameworkElement platformView)
 		{
-			base.OnConnectHandler(nativeView);
+			base.OnConnectHandler(platformView);
 			NavigationFrame.Navigated += OnNavigated;
 
 			// If CreatePlatformView didn't set the NavigationView then that means we are using the
@@ -89,12 +89,12 @@ namespace Microsoft.Maui.Controls.Handlers
 			}
 		}
 
-		private protected override void OnDisconnectHandler(FrameworkElement nativeView)
+		private protected override void OnDisconnectHandler(FrameworkElement platformView)
 		{
 			if (_navigationView != null)
 				_navigationView.OnApplyTemplateFinished -= OnApplyTemplateFinished;
 
-			((WFrame)nativeView).Navigated -= OnNavigated;
+			((WFrame)platformView).Navigated -= OnNavigated;
 			VirtualView.Appearing -= OnTabbedPageAppearing;
 			VirtualView.Disappearing -= OnTabbedPageDisappearing;
 			if (_navigationView != null)
@@ -105,7 +105,7 @@ namespace Microsoft.Maui.Controls.Handlers
 			_previousView = null;
 			_navigationFrame = null;
 
-			base.OnDisconnectHandler(nativeView);
+			base.OnDisconnectHandler(platformView);
 		}
 
 		public override void SetVirtualView(IView view)

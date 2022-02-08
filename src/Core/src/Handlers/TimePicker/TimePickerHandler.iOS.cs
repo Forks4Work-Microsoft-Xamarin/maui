@@ -17,29 +17,29 @@ namespace Microsoft.Maui.Handlers
 			});
 		}
 
-		protected override void ConnectHandler(MauiTimePicker nativeView)
+		protected override void ConnectHandler(MauiTimePicker platformView)
 		{
-			base.ConnectHandler(nativeView);
+			base.ConnectHandler(platformView);
 
-			if (nativeView != null)
-				nativeView.ValueChanged += OnValueChanged;
+			if (platformView != null)
+				platformView.ValueChanged += OnValueChanged;
 		}
 
-		protected override void DisconnectHandler(MauiTimePicker nativeView)
+		protected override void DisconnectHandler(MauiTimePicker platformView)
 		{
-			base.DisconnectHandler(nativeView);
+			base.DisconnectHandler(platformView);
 
-			if (nativeView != null)
+			if (platformView != null)
 			{
-				nativeView.RemoveFromSuperview();
-				nativeView.ValueChanged -= OnValueChanged;
-				nativeView.Dispose();
+				platformView.RemoveFromSuperview();
+				platformView.ValueChanged -= OnValueChanged;
+				platformView.Dispose();
 			}
 		}
 
-		void SetupDefaults(MauiTimePicker nativeView)
+		void SetupDefaults(MauiTimePicker platformView)
 		{
-			DefaultTextColor = nativeView.TextColor;
+			DefaultTextColor = platformView.TextColor;
 		}
 
 		public static void MapFormat(TimePickerHandler handler, ITimePicker timePicker)
