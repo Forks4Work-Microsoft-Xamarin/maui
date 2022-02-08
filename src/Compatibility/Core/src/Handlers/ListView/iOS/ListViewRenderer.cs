@@ -1104,7 +1104,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 					{
 						var templatedList = TemplatedItemsView.TemplatedItems.GetGroup(indexPath.Section);
 
-						cell = (Cell)((INativeElementView)nativeCell).Element;
+						cell = (Cell)((IPlatformElementView)nativeCell).Element;
 						cell.SendDisappearing();
 
 						templatedList.UpdateContent(cell, indexPath.Row);
@@ -1245,7 +1245,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 				Cell formsCell = null;
 				if ((List.CachingStrategy & ListViewCachingStrategy.RecycleElement) != 0)
-					formsCell = (Cell)((INativeElementView)cell).Element;
+					formsCell = (Cell)((IPlatformElementView)cell).Element;
 
 				SetCellBackgroundColor(cell, UIColor.Clear);
 

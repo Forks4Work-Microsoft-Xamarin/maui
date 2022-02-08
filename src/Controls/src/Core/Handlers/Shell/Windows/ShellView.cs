@@ -149,7 +149,7 @@ namespace Microsoft.Maui.Controls.Platform
 			return new SizeRequest(result);
 		}
 
-		public UIElement GetNativeElement() => null;
+		public UIElement GetPlatformElement() => null;
 
 		public void Dispose()
 		{
