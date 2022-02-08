@@ -28,8 +28,8 @@ namespace Microsoft.Maui.Platform
 		{
 			if (_rootView.AppTitleBar != null)
 			{
-				var nativeWindow = _mauiContext.GetNativeWindow();
-				nativeWindow.ExtendsContentIntoTitleBar = true;
+				var platformWindow = _mauiContext.GetNativeWindow();
+				platformWindow.ExtendsContentIntoTitleBar = true;
 				UpdateAppTitleBar(true);
 			}
 
@@ -74,8 +74,8 @@ namespace Microsoft.Maui.Platform
 
 			if (firstConnect)
 			{
-				var nativeWindow = _mauiContext.GetNativeWindow();
-				nativeWindow.Activated += OnWindowActivated;
+				var platformWindow = _mauiContext.GetNativeWindow();
+				platformWindow.Activated += OnWindowActivated;
 
 				UpdateAppTitleBar(true);
 				SetWindowTitle(_mauiContext.GetNativeWindow().GetWindow()?.Title);
@@ -93,13 +93,13 @@ namespace Microsoft.Maui.Platform
 			if (!UseCustomAppTitleBar)
 				return;
 
-			var nativeWindow = _mauiContext.GetNativeWindow();
+			var platformWindow = _mauiContext.GetNativeWindow();
 			if (_rootView.AppTitleBar != null)
 			{
 				if (isActive)
 				{
 					_rootView.Visibility = UI.Xaml.Visibility.Visible;
-					nativeWindow.SetTitleBar(_rootView.AppTitleBar);
+					platformWindow.SetTitleBar(_rootView.AppTitleBar);
 				}
 				else
 				{
