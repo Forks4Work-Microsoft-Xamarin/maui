@@ -1,24 +1,15 @@
 using System;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Handlers;
-using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Devices;
 using Microsoft.Maui.DeviceTests.Stubs;
-using Microsoft.Maui.Dispatching;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Hosting;
-using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
-using Microsoft.Maui.TestUtils.DeviceTests.Runners;
 using Xunit;
 #if ANDROID || IOS || MACCATALYST
 using ShellHandler = Microsoft.Maui.Controls.Handlers.Compatibility.ShellRenderer;
@@ -71,6 +62,16 @@ namespace Microsoft.Maui.DeviceTests
 		protected async Task<THandler> CreateHandlerAsync<THandler>(IElement view)
 			where THandler : IElementHandler, new() =>
 			await InvokeOnMainThreadAsync(() => CreateHandler<THandler>(view));
+
+		protected IElementHandler CreateHandler(IElement view)
+		{
+			var handler = view.ToHandler(MauiContext);
+			InitializeViewHandler(view, handler, MauiContext);
+			return handler;
+		}
+
+		protected async Task<IElementHandler> CreateHandlerAsync(IElement view) =>
+			await InvokeOnMainThreadAsync(() => CreateHandler(view));
 
 		protected Task<TValue> GetValueAsync<TValue, THandler>(IElement view, Func<THandler, TValue> func)
 			 where THandler : IElementHandler, new()
@@ -163,6 +164,7 @@ namespace Microsoft.Maui.DeviceTests
 
 						await OnLoadedAsync(content as VisualElement);
 
+#if !WINDOWS
 						if (window is Window controlsWindow)
 						{
 							if (!controlsWindow.IsActivated)
@@ -173,6 +175,8 @@ namespace Microsoft.Maui.DeviceTests
 							controlsWindow = null;
 							window.Activated();
 						}
+#endif
+
 #if WINDOWS
 						await Task.Delay(10);
 #endif
@@ -186,6 +190,7 @@ namespace Microsoft.Maui.DeviceTests
 							throw new Exception($"I can't work with {typeof(THandler)}");
 
 
+#if !WINDOWS
 						bool isActivated = controlsWindow?.IsActivated ?? false;
 						bool isDestroyed = controlsWindow?.IsDestroyed ?? false;
 
@@ -194,6 +199,8 @@ namespace Microsoft.Maui.DeviceTests
 
 						if (!isDestroyed)
 							window.Destroying();
+#endif
+
 					}, mauiContext);
 				}
 				finally
@@ -310,7 +317,7 @@ namespace Microsoft.Maui.DeviceTests
 				frameworkElement.Loaded += loaded;
 			}
 
-			return source.Task.WaitAsync(timeOut.Value);
+			return HandleLoadedUnloadedIssue(source.Task, timeOut.Value, () => frameworkElement.IsLoaded && frameworkElement.IsLoadedOnPlatform());
 		}
 
 		protected Task OnUnloadedAsync(VisualElement frameworkElement, TimeSpan? timeOut = null)
@@ -343,7 +350,27 @@ namespace Microsoft.Maui.DeviceTests
 				frameworkElement.Unloaded += unloaded;
 			}
 
-			return source.Task.WaitAsync(timeOut.Value);
+			return HandleLoadedUnloadedIssue(source.Task, timeOut.Value, () => !frameworkElement.IsLoaded && !frameworkElement.IsLoadedOnPlatform());
+		}
+
+		// Modal Page's appear to currently not fire loaded/unloaded
+		async Task HandleLoadedUnloadedIssue(Task task, TimeSpan timeOut, Func<bool> isConditionValid)
+		{
+			try
+			{
+				await task.WaitAsync(timeOut);
+			}
+			catch (TimeoutException)
+			{
+				if (isConditionValid())
+				{
+					return;
+				}
+				else
+				{
+					throw;
+				}
+			}
 		}
 
 		protected async Task OnNavigatedToAsync(Page page, TimeSpan? timeOut = null)
